@@ -17,9 +17,11 @@
               <a-icon type="user" />
               <span>subnav 1</span>
             </div>
-            <a-menu-item key="1"> option1 </a-menu-item>
-            <a-menu-item key="2"> option2 </a-menu-item>
-            <a-menu-item key="3"> option3 </a-menu-item>
+            <a-menu-item @click="toAboutPage" key="1"> option1 </a-menu-item>
+            <a-menu-item @click="toHomePage" key="2"> option2 </a-menu-item>
+            <a-menu-item @click="toSystemAboutPage" key="3">
+              option3
+            </a-menu-item>
             <a-menu-item key="4"> option4 </a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
@@ -42,48 +44,7 @@
             <a-menu-item key="11"> option11 </a-menu-item>
             <a-menu-item key="12"> option12 </a-menu-item>
           </a-sub-menu>
-          <!-- <a-menu-item key="1">
-          <a-icon type="user" />
-          <span>nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="video-camera" />
-          <span>nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span>nav 3</span>
-        </a-menu-item> -->
         </a-menu>
-
-        <!-- <a-menu
-        mode="inline"
-        :default-selected-keys="['1']"
-        :default-open-keys="['sub1']"
-        :style="{ height: '100%', borderRight: 0 }"
-      >
-        <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" />subnav 1</span>
-          <a-menu-item key="1"> option1 </a-menu-item>
-          <a-menu-item key="2"> option2 </a-menu-item>
-          <a-menu-item key="3"> option3 </a-menu-item>
-          <a-menu-item key="4"> option4 </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="laptop" />subnav 2</span>
-          <a-menu-item key="5"> option5 </a-menu-item>
-          <a-menu-item key="6"> option6 </a-menu-item>
-          <a-menu-item key="7"> option7 </a-menu-item>
-          <a-menu-item key="8"> option8 </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub3">
-          <span slot="title"><a-icon type="notification" />subnav 3</span>
-          <a-menu-item key="9"> option9 </a-menu-item>
-          <a-menu-item key="10"> option10 </a-menu-item>
-          <a-menu-item key="11"> option11 </a-menu-item>
-          <a-menu-item key="12"> option12 </a-menu-item>
-        </a-sub-menu>
-      </a-menu> -->
       </a-layout-sider>
 
       <!-- 右侧 -->
@@ -110,18 +71,40 @@
           </a-menu>
         </a-layout-header>
 
-        <a-breadcrumb class="breadcrumb">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>List</a-breadcrumb-item>
-          <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb>
-        <!-- 主内容 -->
-        <a-layout-content class="main-container">
-          <router-view id="web-view" />
-          <!-- <ul>
-          <li v-for="item in 60" :key="item">{{ item }}</li>
-        </ul> -->
-        </a-layout-content>
+        <!-- 页签 -->
+        <a-tabs
+          class="page-tab"
+          v-model="activeKey"
+          :tabBarStyle="tabBarStyle"
+          hide-add
+          type="editable-card"
+          @edit="onEdit"
+        >
+          <a-tab-pane v-for="pane in panes" :key="pane.key">
+            <span slot="tab">
+              <a-icon
+                type="reload"
+                @click="tabRefresh"
+                v-show="pane.key === activeKey"
+              />
+              {{ pane.title }}
+            </span>
+            <!-- 面包屑导航 -->
+            <!-- <a-breadcrumb class="breadcrumb">
+              <a-breadcrumb-item>Home</a-breadcrumb-item>
+              <a-breadcrumb-item>List</a-breadcrumb-item>
+              <a-breadcrumb-item>App</a-breadcrumb-item>
+            </a-breadcrumb> -->
+
+            <!-- 主内容 -->
+            <a-layout-content class="main-container">
+              <router-view id="web-view" />
+              <!-- <ul>
+              <li v-for="item in 60" :key="item">{{ item }}</li>
+            </ul> -->
+            </a-layout-content>
+          </a-tab-pane>
+        </a-tabs>
       </a-layout>
     </a-layout>
   </div>
@@ -130,6 +113,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -137,9 +121,53 @@ export default {
     // HelloWorld,
   },
   data() {
+    const panes = [
+      { title: "Tab 1", content: "Content of Tab 1", key: "1" },
+      { title: "Tab 2", content: "Content of Tab 2", key: "2" },
+    ];
     return {
+      panes,
       collapsed: false,
+      activeKey: panes[0].key,
+      tabBarStyle: {
+        marginBottom: 0,
+        marginLeft: "16px",
+        borderBottom: "none",
+      },
     };
+  },
+  created() {
+    this.getPermission();
+  },
+  methods: {
+    onEdit(targetKey, action) {
+      this[action](targetKey);
+    },
+    tabRefresh() {
+      console.log("刷新tab页签");
+    },
+    toAboutPage() {
+      this.$router.push("/system");
+    },
+    toSystemAboutPage() {
+      this.$router.push("/system/about");
+    },
+    toHomePage() {
+      this.$router.push("/");
+    },
+    getPermission() {
+      axios
+        .get("/mock/user/permission")
+        .then(function (response) {
+          console.log("response", response);
+        })
+        .catch(function (error) {
+          console.log("error", error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
   },
 };
 </script>
@@ -150,6 +178,7 @@ export default {
   left: 0;
   height: 100vh;
 }
+
 .main-container {
   // height: calc(100vh - 101px);
   // margin: 16px;
@@ -160,9 +189,12 @@ export default {
     // background: #fff;
   }
 }
+// .page-tab .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+//   border: none !important;
+// }
 .page-box {
-  // height: calc(100% - 32px);
-  // overflow-y: scroll;
+  margin: 0 16px 16px 16px;
+  background: #fff;
 }
 
 i.trigger {

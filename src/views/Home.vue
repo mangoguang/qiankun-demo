@@ -10,6 +10,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -21,12 +22,24 @@ export default {
       collapsed: false,
     };
   },
+  mounted() {
+    console.log("homePage");
+    axios
+      .get("/mock/user/userInfo")
+      .then(function (response) {
+        console.log("response", response);
+      })
+      .catch(function (error) {
+        console.log("error", error);
+      })
+      .then(function () {
+        // always executed
+      });
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .home-page {
-  margin: 16px;
-  background: #fff;
 }
 </style>

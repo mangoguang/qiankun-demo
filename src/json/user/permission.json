@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/",
+    "pathName": "首页"
+  },
+  {
+    "path": "/system",
+    "pathName": "系统"
+  }
+]
