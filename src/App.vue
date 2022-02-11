@@ -146,7 +146,7 @@ export default {
 
 <style lang="scss">
 .left-sider {
-  position: fixed;
+  position: fixed !important;
   left: 0;
   height: 100vh;
 }
@@ -165,7 +165,7 @@ export default {
   // overflow-y: scroll;
 }
 
-.trigger {
+i.trigger {
   font-size: 18px;
   line-height: 64px;
   padding: 0 16px;
@@ -208,7 +208,7 @@ export default {
   padding: 0;
 }
 // 面包屑导航
-.breadcrumb {
+div.breadcrumb {
   padding: 8px 16px 8px 24px;
   background: #fff;
 }
