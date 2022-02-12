@@ -25,7 +25,7 @@ export default {
     registerMicroApps([
       {
         name: "systemApp",
-        entry: "//localhost:8081",
+        entry: "//localhost:8881",
         container: "#container",
         activeRule: "/system",
       },

@@ -19,7 +19,7 @@ registerMicroApps([
   // },
   {
     name: "microApp",
-    entry: "//localhost:8082",
+    entry: "//localhost:8882",
     container: "#microApp",
     activeRule: "/microApp",
   },
