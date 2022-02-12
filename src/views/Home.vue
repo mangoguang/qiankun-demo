@@ -1,9 +1,10 @@
 <template>
   <div class="page-box home-page">
     <h1>首页</h1>
-    <ul>
+    <div id="microApp"></div>
+    <!-- <ul>
       <li v-for="item in 60" :key="item">{{ item }}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
