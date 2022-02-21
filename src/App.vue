@@ -11,40 +11,8 @@
         <div class="logo-box">
           <span class="logo-left"></span><span class="logo-right"></span>
         </div>
-        <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-          <a-sub-menu key="sub1">
-            <div slot="title">
-              <a-icon type="user" />
-              <span>subnav 1</span>
-            </div>
-            <a-menu-item @click="toAboutPage" key="1"> option1 </a-menu-item>
-            <a-menu-item @click="toHomePage" key="2"> option2 </a-menu-item>
-            <a-menu-item @click="toSystemAboutPage" key="3">
-              option3
-            </a-menu-item>
-            <a-menu-item key="4"> option4 </a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub2">
-            <div slot="title">
-              <a-icon type="video-camera" />
-              <span>subnav 2</span>
-            </div>
-            <a-menu-item key="5"> option5 </a-menu-item>
-            <a-menu-item key="6"> option6 </a-menu-item>
-            <a-menu-item key="7"> option7 </a-menu-item>
-            <a-menu-item key="8"> option8 </a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub3">
-            <div slot="title">
-              <a-icon type="upload" />
-              <span>subnav 3</span>
-            </div>
-            <a-menu-item key="9"> option9 </a-menu-item>
-            <a-menu-item key="10"> option10 </a-menu-item>
-            <a-menu-item key="11"> option11 </a-menu-item>
-            <a-menu-item key="12"> option12 </a-menu-item>
-          </a-sub-menu>
-        </a-menu>
+        <!-- 左侧导航栏 -->
+        <LeftMenu />
       </a-layout-sider>
 
       <!-- 右侧 -->
@@ -59,16 +27,7 @@
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
           />
-          <a-menu
-            theme="dark"
-            mode="horizontal"
-            :default-selected-keys="['2']"
-            :style="{ lineHeight: '64px' }"
-          >
-            <a-menu-item key="1"> nav 1 </a-menu-item>
-            <a-menu-item key="2"> nav 2 </a-menu-item>
-            <a-menu-item key="3"> nav 3 </a-menu-item>
-          </a-menu>
+          <TopMenu />
         </a-layout-header>
 
         <!-- 页签 -->
@@ -114,10 +73,14 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import axios from "axios";
+import TopMenu from "@/components/common/topMenu"
+import LeftMenu from "@/components/common/leftMenu"
 
 export default {
   name: "Home",
   components: {
+    TopMenu,
+    LeftMenu
     // HelloWorld,
   },
   data() {
@@ -147,7 +110,7 @@ export default {
       console.log("刷新tab页签");
     },
     toAboutPage() {
-      this.$router.push("/system");
+      this.$router.push("/system")
     },
     toSystemAboutPage() {
       this.$router.push("/system/about");

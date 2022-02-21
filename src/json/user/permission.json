@@ -5,6 +5,90 @@
   },
   {
     "path": "/system",
-    "pathName": "系统"
+    "pathName": "系统",
+    "status": 1,
+    "createTime": "2022-02-21 18:38:30",
+    "children": [
+      {
+        "path": "/system/permission",
+        "pathName": "权限管理",
+        "status": 1,
+        "createTime": "2022-02-21 18:38:30",
+        "children": [
+          {
+            "path": "/system/permission/role",
+            "pathName": "角色管理",
+            "status": 1,
+            "createTime": "2022-02-21 18:38:30"
+          },
+          {
+            "path": "/system/permission/user",
+            "pathName": "用户管理",
+            "status": 1,
+            "createTime": "2022-02-21 18:38:30"
+          }
+        ]
+      },
+      {
+        "path": "/system/page",
+        "pathName": "页面管理",
+        "status": 1,
+        "createTime": "2022-02-21 18:38:30"
+      }
+    ]
+  },
+  {
+    "path": "/micro-vue3",
+    "pathName": "vue3App",
+    "status": 1,
+    "createTime": "2022-02-21 18:38:40",
+    "children": [
+      {
+        "path": "/micro-vue3/list",
+        "pathName": "vue3App列表页",
+        "status": 1
+      },
+      {
+        "path": "/micro-vue3/detail",
+        "pathName": "vue3App详情页",
+        "createTime": "2022-02-21 18:38:30"
+      }
+    ]
+  },
+  {
+    "path": "/micro-react",
+    "pathName": "reactApp",
+    "status": 1,
+    "createTime": "2022-02-21 18:38:40",
+    "children": [
+      {
+        "path": "/micro-react/list",
+        "pathName": "reactApp列表页",
+        "status": 1
+      },
+      {
+        "path": "/micro-react/detail",
+        "pathName": "reactApp详情页",
+        "createTime": "2022-02-21 18:38:30"
+      }
+    ]
+  },
+  {
+    "path": "/micro-static",
+    "pathName": "staticApp",
+    "status": 1,
+    "createTime": "2022-02-21 18:38:40",
+    "children": [
+      {
+        "path": "/micro-static/list",
+        "pathName": "staticApp列表页",
+        "status": 1
+      },
+      {
+        "path": "/micro-static/detail",
+        "pathName": "staticApp详情页",
+        "createTime": "2022-02-21 18:38:30"
+      }
+    ]
   }
 ]

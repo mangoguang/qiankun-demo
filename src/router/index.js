@@ -11,9 +11,15 @@ const routes = [
     component: Home,
   },
   {
-    path: "/system*",
+    path: "/system",
     name: "System",
-    component: () => import(/* webpackChunkName: "about" */ "../views/System"),
+    component: () => import("../views/System"),
+    children: [
+      {
+        path: "*",
+        component: () => import("../views/System"),
+      },
+    ],
   },
 ];
 
